@@ -1,0 +1,17 @@
+﻿\\video intro\\
+
+@{
+    ViewData["Title"] = "Inicio del Juego";
+}
+
+<h1>Aventura en la Cueva</h1>
+
+<p>Caíste en una cueva oscura. La caída te dejó con poca vida y solo tenés una antorcha encendida.</p>
+<p>Escuchás ruidos extraños... Estás solo, rodeado de oscuridad y madera podrida.</p>
+
+<p>¿Qué querés hacer?</p>
+
+<form method="post" asp-controller="Juego" asp-action="SeleccionarOpcion">
+    <button type="submit" name="opcion" value="avanzar">Avanzar</button>
+    <button type="submit" name="opcion" value="esperar">Esperar ayuda</button>
+</form>
