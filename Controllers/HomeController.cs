@@ -13,157 +13,132 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-   private Jugador obtenerJugador()
-{
-    string jugadorString = HttpContext.Session.GetString("Jugador");
-    if (jugadorString == null)
-    {
-        return null;
-    }
-    return Objeto.convertirStringAObjeto<Jugador>(jugadorString);
-}
-
-    private void guardarJugadorSession(Jugador jugador)
-    {
-        HttpContext.Session.SetString("player", Objeto.convertirObjetoAString(jugador));
-    }
-
-    
-    [HttpPost]
-    public IActionResult registrarJugador(string nombreJugador)
-{
-        if (nombreJugador == null)
+   private salaEscape ObtenerJugador()
         {
-            ViewBag.Error = "Registra tu nombre";
-            return View("~/Views/Home/Index.cshtml"); 
+            string datos = HttpContext.Session.GetString("juego");
+            return Objeto.convertirStringAObjeto<salaEscape>(datos);
         }
 
-        Jugador nuevoJugador = new Jugador { nombre = nombreJugador, salaAct = 1 };
-        guardarJugadorSession(nuevoJugador);
-        return View("sala", new { id = 1 }); 
-}
-
-    
-    public IActionResult sala(int id)
-    {
-        Jugador jugador = obtenerJugador();
-        if (jugador == null)
+        private void GuardarJugador(salaEscape jugador)
         {
-            return View("Index", "Home"); 
+            string datos = Objeto.convertirObjetoAString(jugador);
+            HttpContext.Session.SetString("juego", datos);
         }
 
-        
-        if (id > jugador.salaAct)
+        public IActionResult Index()
         {
-            return View("sala", new { id = jugador.salaAct});
+            return View();
         }
 
-        
-        switch (id)
+        [HttpPost]
+        public IActionResult RegistrarJugador(string nombre)
         {
-            case 1:
-                ViewBag.Texto = "Caiste en una cueva, la caída te dejo a poca vida y solo tienes una antorcha.";
-                ViewBag.Adivinanza = "choice";
-                return View("introduccion");
-            case 2:
-                ViewBag.Texto = "Lograste avanzar un poco, pero el camino esta bloqueado por troncos de madera, necesitas un hacha.";
-                ViewBag.Adivinanza = "text";
-                ViewBag.Pista = "Piensa en herramientas para cortar.";
-                return View("segundaSala");
-            case 3:
-                ViewBag.Texto = "La siguiente puerta necesita un código, encuentra las pistas.";
-                ViewBag.Adivinanza = "text";
-                ViewBag.Pista = "Mira las marcas en la pared.";
-                return View("terceraSala");
-            case 4:
-                ViewBag.Texto = "Hay una mesa de crafteo enfrente, pero cuidado, hay un warden cerca.";
-                ViewBag.Adivinanza = "choice";
-                return View("cuartaSala");
-            case 5:
-                ViewBag.Texto = "Fabrica algo con tu hierro.";
-                ViewBag.Adivinanza = "text";
-                ViewBag.Pista = "Algo para minar.";
-                return View("quintaSala");
-            case 6:
-                ViewBag.Texto = "Ingresa la contraseña para que el vagon reciba energia.";
-                ViewBag.Adivinanza = "text";
-                ViewBag.Pista = "Qué quieres hacer?";
-                return View("sala6");
-            default:
-                return View("introduccion", "Home"); 
-        }
-    }
-
-    [HttpPost]
-    public IActionResult subirRespuesta(int salaId, string respuesta)
-    {
-        Jugador jugador = obtenerJugador();
-        if (jugador == null || salaId != jugador.salaAct)
-        {
-            return RedirectToAction("Index", "Home"); 
-        }
-
-        string respuestaCorrecta = "";
-        bool correcta = false;
-
-        switch (salaId)
-        {
-            case 1: 
-                respuestaCorrecta = "avanzar"; 
-                correcta = respuesta.ToLower() == respuestaCorrecta;
-                break;
-            case 2: 
-                respuestaCorrecta = "hacha";
-                correcta = respuesta.ToLower() == respuestaCorrecta;
-                break;
-            case 3: 
-                respuestaCorrecta = "1234"; 
-                correcta = respuesta == respuestaCorrecta;
-                break;
-            case 4: 
-                respuestaCorrecta = "agachado";
-                correcta = respuesta.ToLower() == respuestaCorrecta;
-                break;
-            case 5: 
-                respuestaCorrecta = "pico";
-                correcta = respuesta.ToLower() == respuestaCorrecta;
-                break;
-            case 6: 
-                respuestaCorrecta = "escapar"; 
-                correcta = respuesta.ToLower() == respuestaCorrecta;
-                break;
-        }
-
-        if (correcta)
-        {
-            if (salaId == 6) 
+            if (nombre == null)
             {
-                return View("Ganar");
+                ViewBag.Error = "Debes ingresar tu nombre.";
+                return View("salaIntro");
             }
-            else
+
+            salaEscape jugador = new salaEscape
+            {
+                nombreJugador = nombre,
+                salaAct = 1,
+                vidas = 3
+            };
+
+            GuardarJugador(jugador);
+            return View("salaIntro", new { id = 1 });
+        }
+
+        public IActionResult Sala(int id)
+        {
+            var jugador = ObtenerJugador();
+            if (jugador == null)
+            {
+                return View("salaIntro");
+            }
+
+            if (id > jugador.salaAct)
+            {
+                return View("salaIntro", new { id = jugador.salaAct });
+            }
+
+            ViewBag.Sala = id;
+            ViewBag.Texto = ObtenerTextoSala(id);
+            ViewBag.Pista = ObtenerPistaSala(id);
+            return View("Sala" + id);
+        }
+
+        [HttpPost]
+        public IActionResult SubirRespuesta(int salaId, string respuesta)
+        {
+            var jugador = ObtenerJugador();
+            if (jugador == null || salaId != jugador.salaAct)
+            {
+                return View("salaIntro");
+            }
+
+            string clave = ObtenerClaveCorrecta(salaId);
+
+            if (respuesta.ToLower() == clave)
             {
                 jugador.salaAct++;
-                guardarJugadorSession(jugador);
-                return View("sala", new { id = jugador.salaAct });
+                GuardarJugador(jugador);
+
+                if (salaId == 5)
+                {
+                    return View("Ganar");
+                }
+
+                return View("quintaSala", new { id = jugador.salaAct });
+            }
+
+            ViewBag.Error = "Respuesta incorrecta.";
+            return View("salaIntro", new { id = salaId });
+        }
+
+        public IActionResult Ganar()
+        {
+            HttpContext.Session.Clear();
+            return View();
+        }
+
+        private string ObtenerTextoSala(int id)
+        {
+            switch (id)
+            {
+                case 1: return "Estás en la entrada de la cueva.";
+                case 2: return "Unos troncos bloquean el camino.";
+                case 3: return "Una puerta con combinación bloquea el paso.";
+                case 4: return "Cuidado con el warden. Hay una mesa de crafteo.";
+                case 5: return "Fabricá algo con el hierro para poder escapar.";
+                default: return "";
             }
         }
-        else
-        {
-            ViewBag.Error = "Respuesta incorrecta, intenta de nuevo.";
-          
-            return sala(salaId);
-        }
-    }
 
-    public IActionResult Ganar()
-    {
-        Jugador jugador = obtenerJugador();
-        if (jugador == null)
+        private string ObtenerPistaSala(int id)
         {
-            return View("Index", "Home");
+            switch (id)
+            {
+                case 1: return "Escribí 'avanzar'.";
+                case 2: return "¿Qué corta madera?";
+                case 3: return "Fijate en las marcas del muro.";
+                case 4: return "No hagas ruido.";
+                case 5: return "Se usa para minar.";
+                default: return "";
+            }
         }
-        
-        HttpContext.Session.Clear();
-        return View();
+
+        private string ObtenerClaveCorrecta(int id)
+        {
+            switch (id)
+            {
+                case 1: return "avanzar";
+                case 2: return "hacha";
+                case 3: return "1234";
+                case 4: return "agachado";
+                case 5: return "pico";
+                default: return "";
+            }
+        }
     }
-}

@@ -21,3 +21,22 @@ footer {
   background-color: #f8f9fa;
   border-top: 1px solid #e9ecef;
 }
+
+.medio h3{
+  color: rgb(224, 223, 223);
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 40px;           
+  padding: 15px;
+  width: 320px;
+  margin: 30px auto;
+  background-color: #000000;       
+  text-align: center;
+  font-family: sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  margin-left: 1%;
+}
+
+.medio:hover{
+  background-color: #1a1919;
+
+}
