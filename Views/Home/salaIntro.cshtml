@@ -1,17 +1,21 @@
 @{
-    ViewData["Title"] = "Inicio del Juego";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<img src="img/imagen6" alt="Imagen">
+<div class="contenedor-fondo">
+    <div class="texto-superpuesto">
+         <h5>Bienvenido a la mejor sala de escape del mundo</h5>
 
-<h5>Bienvenido a la mejor sala de escape del mundo</h5>
+<p>
+    En esta sala de escape vas a tener que escapar de una cueva, 
+    encontrando los materiales necesarios para escapar.
+</p>
+<div class="medio">
+    <a asp-action="Sala" asp-controller="Escape" asp-route-id="1">Jugar</a>
+</div>
+    </div>
+</div>
 
-<p>En esta sala de escape vas a tener que escapar de una cueva, encontrando los materiales necesarios para escapar.</p>
-
-
- <div class = "medio">
-            <a href="primeraSala.cshtml">Jugar</a>
-        </div>
 
 
 

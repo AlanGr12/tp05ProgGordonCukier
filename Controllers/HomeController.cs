@@ -25,7 +25,7 @@ public class HomeController : Controller
             HttpContext.Session.SetString("juego", datos);
         }
 
-        public IActionResult Index()
+        public IActionResult salaIntro()
         {
             return View();
         }
