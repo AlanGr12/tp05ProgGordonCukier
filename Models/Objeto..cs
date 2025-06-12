@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+
+
 public static class Objeto
 {      public static string convertirObjetoAString<T>(T? obj)
     {
@@ -13,10 +16,9 @@ public static class Objeto
         {
             return JsonConvert.DeserializeObject<T>(txt);
         }
-    } 
+    }
+
+
+
+
 }
-
-
-
-
-
