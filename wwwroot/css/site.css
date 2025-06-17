@@ -16,28 +16,29 @@ body {
 
 
 
-
-
-.medio h3{
+.medio { 
   color: rgb(224, 223, 223);
-  box-shadow: 3px 3px 3px grey;
+  background-color: #000000;
   border-radius: 40px;           
   padding: 15px;
   width: 320px;
   margin: 30px auto;
-  background-color: #000000;       
   text-align: center;
   font-family: sans-serif;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-  margin-left: 1%;
-  display: none;
+  display: block;
 }
 
-.medio:hover{
+.medio a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.medio:hover {
   background-color: #1a1919;
-
 }
-
 
 .contenedor-fondo {
   height: 100vh; 
@@ -62,3 +63,18 @@ body {
   text-align: center;
 }
 
+.jugar-btn {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.jugar-btn:hover {
+  background-color: #333;
+}
