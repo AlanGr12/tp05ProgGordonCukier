@@ -2,18 +2,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="contenedor-fondo">
     <div class="texto-superpuesto">
         <h5>Bienvenido a la mejor sala de escape del mundo</h5>
 
         <p>
             En esta sala de escape vas a tener que escapar de una cueva, 
-            encontrando los materiales necesarios para escapar.
+            encontrando los materiales necesarios para lograrlo.
+            Recorda la ultima letra de la palabra del acertijo
         </p>
 
-      <div class="medio">
-  <a asp-action="Sala" asp-controller="Escape" asp-route-id="2">Jugar</a>
-</div>
+    
+        <form asp-action="RegistrarJugador" asp-controller="Home" method="post">
+            <input type="text" name="nombre" placeholder="Tu nombre" class="form-control" required />
+            <br />
+            <button type="submit" class="btn btn-primary">Jugar</button>
+        </form>
+
+
+        @if (ViewBag.Error != null)
+        {
+            <p style="color:red">@ViewBag.Error</p>
+        }
     </div>
-</div>
 </div>

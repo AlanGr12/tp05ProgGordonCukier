@@ -1,18 +1,29 @@
-﻿\\video intro\\
-
+﻿
 @{
     ViewData["Title"] = "Inicio del Juego";
 }
 
-<h1>Aventura en la Cueva</h1>
 
-<p>Caíste en una cueva oscura. La caída te muy dañado y solo tenés una antorcha encendida.</p>
-<p>Escuchás ruidos extraños... Estás solo, rodeado de oscuridad y madera podrida.</p>
-<img src="img/imagen1" alt="Imagen">
+<div class="contenedor-fondoo">
+    <div class="texto-superpuestoo">
+        <h5>
+            Estás solo y confundido @ViewBag.nombreJugador, tuviste una caída bastante fuerte.
+            Solo te quedan @ViewBag.vidas corazones de vida, será mejor que tengas cuidado.
+            ¿Qué vas a hacer?
+        </h5>
 
-<p>¿Qué querés hacer?</p>
+        <p><strong>Aidvina el acertijo:</strong> Cuanto más le quitás, más grande se vuelve. ¿Qué es?</p>
 
-<form method="post" asp-controller="Juego" asp-action="SeleccionarOpcion">
-    <button type="submit" name="opcion" value="avanzar">Avanzar</button>
-    <button type="submit" name="opcion" value="esperar">Esperar ayuda</button>
-</form>
+        <form asp-action="VerificarAcertijo" asp-controller="Home" method="post">
+            <input type="hidden" name="salaActual" value="2" />
+            <input type="text" name="respuesta" placeholder="Tu respuesta..." class="form-control" required />
+            <br />
+            <button type="submit" class="btn btn-success">Responder</button>
+        </form>
+
+        @if (ViewBag.MensajeError != null)
+        {
+            <p style="color:red">@ViewBag.MensajeError</p>
+        }
+    </div>
+</div>
