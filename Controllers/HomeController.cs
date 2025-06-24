@@ -107,15 +107,17 @@ public IActionResult VerificarAcertijo(string respuesta, int salaActual)
     switch (salaActual)
     {
         case 2:
-            correcta = respuesta.ToLower() == "agujero";
-            break;
-        case 3:
             correcta = respuesta.ToLower() == "sombra";
             break;
-        case 4:
-            correcta = respuesta.ToLower() == "fuego";
+        case 3:
+            correcta = respuesta.ToLower() == "sol";
             break;
-        // agregás más salas y respuestas acá
+        case 4:
+            correcta = respuesta.ToLower() == "letrero";
+            break;
+            case 5:
+          correcta = respuesta.ToLower() == "";
+   
         default:
             break;
     }
@@ -124,7 +126,7 @@ public IActionResult VerificarAcertijo(string respuesta, int salaActual)
     {
         jugador.salaAct++;
         GuardarJugador(jugador);
-        return RedirectToAction($"sala{jugador.salaAct}"); // va a sala3, sala4, etc.
+        return RedirectToAction($"sala{jugador.salaAct}"); 
     }
     else
     {
@@ -135,7 +137,7 @@ public IActionResult VerificarAcertijo(string respuesta, int salaActual)
         ViewBag.Vidas = jugador.vidas;
         ViewBag.MensajeError = "Respuesta incorrecta. Perdés una vida.";
 
-        return View($"sala{salaActual}"); // vuelve a la misma sala
+        return View($"sala{salaActual}"); 
     }
 }
 
@@ -156,42 +158,5 @@ public IActionResult salaIntro()
 {
     return View("salaIntro"); 
 }
-        private string ObtenerTextoSala(int id)
-        {
-            switch (id)
-            {
-                case 1: return "Estás en la entrada de la cueva.";
-                case 2: return "Unos troncos bloquean el camino.";
-                case 3: return "Una puerta con combinación bloquea el paso.";
-                case 4: return "Cuidado con el warden. Hay una mesa de crafteo.";
-                case 5: return "Fabricá algo con el hierro para poder escapar.";
-                default: return "";
-            }
-        }
-
-        private string ObtenerPistaSala(int id)
-        {
-            switch (id)
-            {
-                case 1: return "Escribí 'avanzar'.";
-                case 2: return "¿Qué corta madera?";
-                case 3: return "Fijate en las marcas del muro.";
-                case 4: return "No hagas ruido.";
-                case 5: return "Se usa para minar.";
-                default: return "";
-            }
-        }
-
-        private string ObtenerClaveCorrecta(int id)
-        {
-            switch (id)
-            {
-                case 1: return "avanzar";
-                case 2: return "hacha";
-                case 3: return "1234";
-                case 4: return "agachado";
-                case 5: return "pico";
-                default: return "";
-            }
-        }
+      
     }
