@@ -25,138 +25,118 @@ public class HomeController : Controller
             HttpContext.Session.SetString("juego", datos);
         }
 
-    
+        [HttpGet]
+        public IActionResult salaIntro()
+        {
+            return View("salaIntro");
+        }
 
         [HttpPost]
-    
-public IActionResult RegistrarJugador(string nombre)
-{
-    if (nombre == null)
-    {
-        ViewBag.Error = "Debes ingresar tu nombre.";
-        return View("salaIntro");
-    }
+        public IActionResult RegistrarJugador(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                ViewBag.Error = "Debes ingresar tu nombre.";
+                return View("salaIntro");
+            }
 
-    salaEscape jugador = new salaEscape
-    {
-        nombreJugador = nombre,
-        salaAct = 1,
-        vidas = 3
-    };
+            salaEscape jugador = new salaEscape
+            {
+                nombreJugador = nombre,
+                salaAct = 1,
+                vidas = 3
+            };
 
-    GuardarJugador(jugador);
+            GuardarJugador(jugador);
 
-    
-return RedirectToAction("primeraSala");
-}
+            return RedirectToAction("Sala", new { id = 1 });
+        }
 
         public IActionResult Sala(int id)
         {
             var jugador = ObtenerJugador();
             if (jugador == null)
             {
-                return View("salaIntro");
+                return RedirectToAction("salaIntro");
             }
 
             if (id > jugador.salaAct)
             {
-                return View("salaIntro", new { id = jugador.salaAct });
+                return RedirectToAction("Sala", new { id = jugador.salaAct });
             }
 
             ViewBag.Sala = id;
-            ViewBag.Texto = ObtenerTextoSala(id);
-            ViewBag.Pista = ObtenerPistaSala(id);
-            return View("Sala" + id);
+            ViewBag.NombreJugador = jugador.nombreJugador;
+            ViewBag.Vidas = jugador.vidas;
+
+            return View($"sala{id}");
         }
 
         [HttpPost]
-        public IActionResult SubirRespuesta(int salaId, string respuesta)
+        public IActionResult VerificarAcertijo(string respuesta, int salaActual)
         {
             var jugador = ObtenerJugador();
-            if (jugador == null || salaId != jugador.salaAct)
+            if (jugador == null || salaActual != jugador.salaAct)
             {
-                return View("salaIntro");
+                return RedirectToAction("salaIntro");
             }
 
-            string clave = ObtenerClaveCorrecta(salaId);
+            bool correcta = false;
 
-            if (respuesta.ToLower() == clave)
+            switch (salaActual)
             {
+                case 1:
+                    correcta = respuesta.ToLower() == "sombra";
+                    break;
+                case 2:
+                    correcta = respuesta.ToLower() == "sol";
+                    break;
+                case 3:
+                    correcta = respuesta.ToLower() == "letrero";
+                    break;
+                case 4:
+                    correcta = respuesta.ToLower() == "5:30";
+                    break;
+                case 5:
+                    correcta = respuesta.ToLower() == "0:30";
+                    break;
+
+            }
+
+            if (correcta)
+            {
+                string sala;
                 jugador.salaAct++;
                 GuardarJugador(jugador);
 
-                if (salaId == 5)
-                {
-                    return View("Ganar");
-                }
+                if (jugador.salaAct > 7)
+                    return RedirectToAction("Ganar");
 
-                return View("quintaSala", new { id = jugador.salaAct });
+                return RedirectToAction("Sala", new { id = jugador.salaAct });
             }
+            else
+            {
+                jugador.vidas--;
+                GuardarJugador(jugador);
 
-            ViewBag.Error = "Respuesta incorrecta.";
-            return View("salaIntro", new { id = salaId });
+                if (jugador.vidas <= 0)
+                    return RedirectToAction("GameOver");
+
+                ViewBag.NombreJugador = jugador.nombreJugador;
+                ViewBag.Vidas = jugador.vidas;
+                ViewBag.MensajeError = "Respuesta incorrecta. Perdés una vida.";
+
+                return View($"sala{salaActual}");
+            }
         }
 
-    
-       [HttpPost]
-public IActionResult VerificarAcertijo(string respuesta, int salaActual)
-{
-    var jugador = ObtenerJugador();
-    bool correcta = false;
+        public IActionResult Ganar()
+        {
+            return View("Ganar");
+        }
 
-    switch (salaActual)
-    {
-        case 2:
-            correcta = respuesta.ToLower() == "sombra";
-            break;
-        case 3:
-            correcta = respuesta.ToLower() == "sol";
-            break;
-        case 4:
-            correcta = respuesta.ToLower() == "letrero";
-            break;
-            case 5:
-          correcta = respuesta.ToLower() == "";
-   
-        default:
-            break;
-    }
-
-    if (correcta)
-    {
-        jugador.salaAct++;
-        GuardarJugador(jugador);
-        return RedirectToAction($"sala{jugador.salaAct}"); 
-    }
-    else
-    {
-        jugador.vidas--;
-        GuardarJugador(jugador);
-
-        ViewBag.NombreJugador = jugador.nombreJugador;
-        ViewBag.Vidas = jugador.vidas;
-        ViewBag.MensajeError = "Respuesta incorrecta. Perdés una vida.";
-
-        return View($"sala{salaActual}"); 
-    }
-}
-
-
-  public IActionResult PrimeraSala()
-{
-    var jugador = ObtenerJugador();
-    if (jugador == null)
-    {
-        return View("salaIntro"); 
-    }
-    ViewBag.NombreJugador = jugador.nombreJugador;
-    return View();
-
-    return View(); 
-}
-public IActionResult salaIntro()
-{
-    return View("salaIntro"); 
-}
-      
+        public IActionResult GameOver()
+        {
+            return View("GameOver");
+        }
     }

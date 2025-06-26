@@ -4,6 +4,7 @@
 }
 
 
+
 <div class="contenedor-fondoo">
     <div class="texto-superpuestoo">
         <h5>
@@ -14,8 +15,8 @@
 
         <p><strong>Aidvina el acertijo:</strong> Sigo tus movimientos todo el dia, mientras el sol se muestre ahí arriba</p>
 
-        <form asp-action="VerificarAcertijo" asp-controller="Home" method="post">
-            <input type="hidden" name="salaActual" value="2" />
+        <Form action = '@Url.Action("VerificarAcertijo", "Home")' method = "POST" enctype="multipart/form-data">
+         <input type="hidden" name="salaActual" value="1" />
             <input type="text" name="respuesta" placeholder="Tu respuesta..." class="form-control" required />
             <br />
             <button type="submit" class="btn btn-success">Responder</button>
@@ -23,7 +24,11 @@
 
         @if (ViewBag.MensajeError != null)
         {
-            <p style="color:red">@ViewBag.MensajeError</p>
+            <p> style="color:red">@ViewBag.MensajeError</p>
         }
     </div>
+
+
+    <h1>Vidas: @ViewBag.vidas</h1>
+    <h2>@ViewBag.nombreJugador</h2>
 </div>

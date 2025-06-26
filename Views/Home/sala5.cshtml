@@ -1,0 +1,36 @@
+
+body class = "uv">
+
+
+
+
+
+
+<main>
+<form action='@Url.Action("siguentePista","Home")' method= "post">
+<input type="hidden" name="Verif" value="LKAhfjagyeuiahb"/>
+<input type text name="palabra"/>
+ <button type="submit" class="comenzar">
+ Enviar Respuesta
+ </button>
+</form>
+<section>
+<h1>
+7410
+</h1>
+<div id="uv-light">
+</div>
+
+
+</section>
+</main>
+<script>
+  const uvLight = document.getElementById('uv-light');
+
+
+  document.addEventListener('mousemove', function (e) {
+    uvLight.style.left = `${e.clientX}px`;
+    uvLight.style.top = `${e.clientY}px`;
+  });
+</script>
+</body>

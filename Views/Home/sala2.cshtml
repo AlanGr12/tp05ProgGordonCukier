@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Segunda sala";
+}
+
+
+<div class="contenedor-fondooo">
+    <div class="texto-superpuestooo">
+     
+           <p>La siguente sala esta tapada con madera @ViewBag.nombreJugador,Vas a necesitar acertar la adivinanza para poder romper la madera y avanzar</p>
+
+           
+               
+ 
+
+        <p>Desde el amanecer al atardecer, quemó a los Zombies que suelen aparecer</p>
+
+        <Form action = '@Url.Action("VerificarAcertijo", "Home")' method = "POST" enctype="multipart/form-data">
+         <input type="hidden" name="salaActual" value="2" />
+            <input type="text" name="respuesta" placeholder="Tu respuesta..." class="form-control" required />
+            <br />
+            <button type="submit" class="btn btn-success">Responder</button>
+        </form>
+
+        @if (ViewBag.MensajeError != null)
+        {
+            <p> style="color:red">@ViewBag.MensajeError</p>
+        }
+    </div>
+
+    
+    <h1>Vidas: @ViewBag.vidas</h1>
+    <h2>@ViewBag.nombreJugador</h2>
+</div>

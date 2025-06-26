@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "cuarta sala";
+}
+
+//imagen personaje con el reloj en el brazo derecho 
+
+
+ <Form action = '@Url.Action("VerificarAcertijo", "Home")' method = "POST" enctype="multipart/form-data">
+         <input type="hidden" name="salaActual" value="3" />
+            <input type="text" name="respuesta" placeholder="Tu respuesta..." class="form-control" required />
+            <br />
+            <button type="submit" class="btn btn-success">Responder</button>
+        </form>
