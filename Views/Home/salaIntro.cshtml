@@ -5,21 +5,22 @@
 
 <div class="contenedor-fondo">
     <div class="texto-superpuesto">
-        <h5>Bienvenido a la mejor sala de escape del mundo</h5>
+        <p>Bienvenido a la mejor sala de escape del mundo</p>
 
         <p>
             En esta sala de escape vas a tener que escapar de una cueva, 
             encontrando los materiales necesarios para lograrlo.
-            Recorda la ultima letra de la palabra del acertijo
         </p>
+        <p>  Para comenzar a jugar  ingresa tu nombre y presiona el botón Jugar</p>
 
     
         <form asp-action="RegistrarJugador" asp-controller="Home" method="post">
-            <input type="text" name="nombre" placeholder="Tu nombre" class="form-control" required />
+            <input type="text" name="nombre" placeholder="nombre" class="form-control" required />
             <br />
             <button type="submit" class="btn btn-primary">Jugar</button>
         </form>
 
+    <a asp-action="Creditos" asp-controller="Home" class="btn btn-primary">Creditos</a>
 
         @if (ViewBag.Error != null)
         {

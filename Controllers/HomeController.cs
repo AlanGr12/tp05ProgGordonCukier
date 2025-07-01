@@ -34,7 +34,7 @@ public class HomeController : Controller
         [HttpPost]
         public IActionResult RegistrarJugador(string nombre)
         {
-            if (string.IsNullOrEmpty(nombre))
+            if (nombre == null)
             {
                 ViewBag.Error = "Debes ingresar tu nombre.";
                 return View("salaIntro");
@@ -120,7 +120,7 @@ public class HomeController : Controller
                 GuardarJugador(jugador);
 
                 if (jugador.vidas <= 0)
-                    return RedirectToAction("GameOver");
+                    return RedirectToAction("perdiste");
 
                 ViewBag.NombreJugador = jugador.nombreJugador;
                 ViewBag.Vidas = jugador.vidas;
@@ -135,8 +135,13 @@ public class HomeController : Controller
             return View("Ganar");
         }
 
-        public IActionResult GameOver()
+        public IActionResult Creditos()
         {
-            return View("GameOver");
+          
+            return View("creditos");
         }
+    public IActionResult perdiste()
+    {
+        return View("perdiste");
+    }
     }

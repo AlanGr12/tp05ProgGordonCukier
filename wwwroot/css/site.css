@@ -62,22 +62,35 @@ body {
   text-align: center;
 }
 
-.jugar-btn {
-  background-color: black;
-  color: white;
+.btn-primary {
+  background: linear-gradient(135deg, #000000, #000000); /* Gradiente atractivo */
+  color: rgb(255, 255, 255); /* Texto blanco para contraste */
   font-weight: bold;
-  padding: 10px 40px;
-  border-radius: 30px;
-  border: none;
+  padding: 10px 20px; /* Ajuste de tamaño */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
   cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s;
+  font-size: 16px; /* Tamaño de fuente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+  transition: all 0.3s ease; /* Transición suave */
+  margin-bottom: 2%;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #007bff); /* Inversión de gradiente */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Sombra más intensa */
+  transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+.btn-primary:active {
+  transform: scale(0.95); /* Efecto de clic */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra reducida */
 }
 
 .contenedor-fondoo {
   height: 100vh; 
   width: 100%;
-  background-image: url('/img/img2.png');
+  background-image: url('/img/img3.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -121,6 +134,62 @@ body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
 }
+
+.contenedor-fondooooo{
+  height: 100vh; 
+  width: 100%;
+  margin-left: 2%;
+  background-image: url('/img/img4.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-superpuestooo{
+  color: white;
+
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+}
+
+.texto-superpuestooooo{
+  color: white;
+  margin-top: 10%;
+  margin-left: 7%;
+  border-radius: 8px;
+  font-size: 0.59rem;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+}
+
+#uv-light {
+  position: fixed;
+  pointer-events: none;          /* No interfiere con clicks */
+  background: url('/img/hoyoLuz.png') no-repeat center center; /* Ruta a tu imagen */
+  background-size: auto;        /* Ajusta para cubrir el div */
+  transform: translate(-50%, -50%); /* Centra la imagen respecto al cursor */
+  z-index: 9999;                 /* Para que esté arriba */
+}
+
+#uv-light{
+  display: block;
+  width: 3000px;;
+}
+
+.salaLinterna{
+  background-image: url('/img/img6.png');
+}
+
+
+
 h1{
   margin-top: 47%;
   color: white;
@@ -134,29 +203,155 @@ h2{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.uv {
-  margin: 0;
-  height: 100vh;
-  background-color: #111; /* fondo oscuro */
-  overflow: hidden;
-  cursor: none; /* opcional, oculta el cursor */
+.comenzar{
+ 
+}
+
+.contenedor-fondo5{
+  height: 100vh; 
+  width: 100%;
+  margin-left: 2%;
+  background-image: url('/img/img7.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-superpuesto5{
+  color: white;
+
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
 }
 
 
-#uv-light {
-  position: fixed;
-  pointer-events: none; /* que no interfiera con clicks */
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(241, 238, 14, 0.8) 0%, rgba(138,43,226,0) 70%);
-  mix-blend-mode: screen; /* para mezcla de color */
-  filter: drop-shadow(0 0 10px rgba(255, 251, 0, 0.8));
+.contenedor-creditos {
+  text-align: center;
+  border-radius: 10px;
+  
+
+}
+
+
+
+.equipo {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+}
+
+.miembro {
+  text-align: center;
+  max-width: 200px;
+}
+
+.foto-miembro {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Imagen circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.reloj-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+.reloj {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-left: 220%;
+  padding-bottom: 210%;
+}
+
+.reloj:hover {
+  transform: scale(1.1); /* Efecto de agrandamiento al pasar el cursor */
+}
+
+.reloj-dinamico {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  transition: background 0.2s ease;
+  z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.reloj-dinamico img {
+  width: 200px; 
+  height: auto;
+}
+a {
+  text-decoration: none; 
+}
+.contenedor-creditos h3{
+  font-size: 2rem;
+  color: #333;
+  padding-bottom: 3%;
+}
+
+.contenedor-perdiste {
+  text-align: center;
+  background-color: #f8f9fa; /* Fondo claro */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.mensaje-perdiste {
+  color: red; /* Mensaje en rojo */
+  font-size: 3rem; /* Tamaño grande */
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+}
+
+.contenedor-ganaste {
+  text-align: center;
+  margin-top: 20%;
+  background-color: #d4edda; /* Fondo verde claro */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.mensaje-ganaste {
+  color: #155724; /* Verde oscuro */
+  font-size: 3rem; /* Tamaño grande */
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+}
+
+.detalle-ganaste {
+  font-size: 1.5rem;
+  color: #155724; /* Texto secundario */
+  margin-bottom: 30px;
 }
 
 
-.jugar-btn:hover {
-  background-color: #333;
+h5 {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-top: 10px;
+  color:white;
+}	
+
+h3 {
+  font-size: 1.5rem;
+  color: #555;
 }

@@ -2,12 +2,41 @@
     ViewData["Title"] = "cuarta sala";
 }
 
-//imagen personaje con el reloj en el brazo derecho 
+<div class="contenedor-fondo5">
+    <div class="texto-superpuesto5">
+        <p>¿Que hora es?</p>
 
-
- <Form action = '@Url.Action("VerificarAcertijo", "Home")' method = "POST" enctype="multipart/form-data">
-         <input type="hidden" name="salaActual" value="3" />
+        <form action='@Url.Action("VerificarAcertijo", "Home")' method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="salaActual" value="4" />
             <input type="text" name="respuesta" placeholder="Tu respuesta..." class="form-control" required />
             <br />
             <button type="submit" class="btn btn-success">Responder</button>
         </form>
+
+        @if (ViewBag.MensajeError != null)
+        {
+            <p style="color:red">@ViewBag.MensajeError</p>
+        }
+    </div>
+
+    <div class="reloj-container">
+        <img id="reloj" src="/img/reloj.png" alt="Reloj" class="reloj" />
+    </div>
+
+    <div id="reloj-dinamico" class="reloj-dinamico" style="display: none;">
+        <img src="/img/reloj-dinamico.png" alt="Reloj dinámico" />
+    </div>
+
+    <h1>Vidas: @ViewBag.vidas</h1>
+    <h2>@ViewBag.nombreJugador</h2>
+</div>
+
+<script>
+    document.getElementById('reloj').addEventListener('click', function () {
+        const relojDinamico = document.getElementById('reloj-dinamico');
+        relojDinamico.style.display = 'block';
+    });
+
+    document.getElementById('reloj-dinamico').addEventListener('click', function () {
+        this.style.display = 'none'; 
+    });
