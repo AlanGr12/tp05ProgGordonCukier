@@ -1,23 +1,40 @@
-<section class="salaLinterna">
-  <main>
+<div class="contenedor-fondo11">
+    <div class="texto-superpuesto11">
+     
+<main>
+
+ <p>Ingrese el codigo final:</p>
     <form action='@Url.Action("verificarAcertijo","Home")' method="post">
-      <input type="hidden" name="Verif" value="LKAhfjagyeuiahb" />
-      <input type="text" name="palabra" />
-      <button type="submit" class="comenzar">
-        Enviar Respuesta
-      </button>
+      <input type="hidden" name="salaActual" value="5" />
+      <input type="text" name="respuesta" />
+      <button type="submit" class="btn respuesta-btn">Respuesta</button>
     </form>
 
     <section>
-      <h1>
-        Vidas: @ViewBag.vidas<br />
-        @ViewBag.nombreJugador
-      </h1>
+  
 
      
       <div id="uv-light"></div>
-    </section>
+
+      
+
   </main>
+
+        @if (ViewBag.MensajeError != null)
+        {
+            <p style="color:red">@ViewBag.MensajeError</p>
+        }
+    </div>
+
+
+    
+    <h1>Vidas: @ViewBag.vidas</h1>
+    <h2>@ViewBag.nombreJugador</h2>
+</div>
+
+ 
+    
+  
 
   <style>
     #uv-light {
@@ -31,6 +48,8 @@
       z-index: 9999;
     }
   </style>
+
+  
 
   <script>
     const uvLight = document.getElementById('uv-light');
