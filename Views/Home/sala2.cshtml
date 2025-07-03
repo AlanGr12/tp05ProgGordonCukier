@@ -18,12 +18,12 @@
          <input type="hidden" name="salaActual" value="2" />
             <input type="text" name="respuesta" placeholder="Tu respuesta..." class="form-control" required />
             <br />
-            <button type="submit" class="btn btn-success">Responder</button>
+            <button type="submit" class="btn respuesta-btn">Respuesta</button>   
         </form>
 
-        @if (ViewBag.MensajeError != null)
+       @if (ViewBag.MensajeError != null)
         {
-            <p> style="color:red">@ViewBag.MensajeError</p>
+            <p style="color:red">@ViewBag.MensajeError</p>
         }
     </div>
 
