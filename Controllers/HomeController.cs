@@ -8,6 +8,7 @@ public class HomeController : Controller
 {  
     private readonly ILogger<HomeController> _logger;
 
+
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
@@ -86,19 +87,19 @@ public class HomeController : Controller
             switch (salaActual)
             {
                 case 1:
-                    correcta = respuesta.ToLower() == "sombra";
+                    correcta = respuesta == "sombra";
                     break;
                 case 2:
-                    correcta = respuesta.ToLower() == "sol";
+                    correcta = respuesta == "sol";
                     break;
                 case 3:
-                    correcta = respuesta.ToLower() == "letrero";
+                    correcta = respuesta == "letrero";
                     break;
                 case 4:
-                    correcta = respuesta.ToLower() == "5:30";
+                    correcta = respuesta == "5:00";
                     break;
                 case 5:
-                    correcta = respuesta.ToLower() == "0:30";
+                    correcta = respuesta== "5307";
                     break;
 
             }
@@ -109,8 +110,8 @@ public class HomeController : Controller
                 jugador.salaAct++;
                 GuardarJugador(jugador);
 
-                if (jugador.salaAct > 7)
-                    return RedirectToAction("Ganar");
+                if (jugador.salaAct == 6)
+                    return RedirectToAction("ganaste");
 
                 return RedirectToAction("Sala", new { id = jugador.salaAct });
             }
@@ -130,9 +131,9 @@ public class HomeController : Controller
             }
         }
 
-        public IActionResult Ganar()
+        public IActionResult ganaste()
         {
-            return View("Ganar");
+            return View("ganaste");
         }
 
         public IActionResult Creditos()
